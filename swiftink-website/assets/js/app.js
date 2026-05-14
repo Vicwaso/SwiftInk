@@ -109,7 +109,7 @@ const services = {
     finishes: ["Matte paper", "Gloss finish", "Card stock 250gsm", "Lamination on request", "Corner rounding"],
     turnaround: "Usually 2-4 working days after design approval, depending on quantity and finishing.",
     gallery: ["Wedding Cake Ticket", "Birthday Cupcake Topper", "Buffet Food Label"],
-  },  // ✅ THIS CLOSING BRACKET WAS MISSING!
+  },
 };
 
 const serviceList = Object.entries(services).map(([slug, service]) => ({ slug, ...service }));
@@ -457,7 +457,6 @@ function renderLegal() {
 }
 
 function setTheme(isDark) {
-  const html = document.documentElement;
   const body = document.body;
   const themeKnob = document.getElementById('themeKnob');
   const themeIcon = document.getElementById('themeIcon');
@@ -481,7 +480,6 @@ function setTheme(isDark) {
   localStorage.setItem('swiftinkTheme', isDark ? 'dark' : 'light');
 }
 
-// Global toggle function for onclick
 window.toggleTheme = function() {
   const isDark = !document.body.classList.contains('dark-mode');
   setTheme(isDark);
@@ -504,8 +502,9 @@ function setupNavigation() {
       if (mobileMenu) mobileMenu.classList.toggle("open");
     });
   }
+}
 
-  function setupChat() {
+function setupChat() {
   const panel = document.getElementById("chatPanel");
   const messages = document.getElementById("chatMessages");
   const input = document.getElementById("chatInput");
@@ -572,10 +571,15 @@ function init() {
     yearElement.textContent = new Date().getFullYear();
   }
   
-  // Load saved theme
   const savedTheme = localStorage.getItem('swiftinkTheme');
   const isDark = savedTheme === 'dark';
   setTheme(isDark);
   
   console.log("SwiftInk website initialized!");
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
 }
