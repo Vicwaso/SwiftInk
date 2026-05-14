@@ -28,7 +28,12 @@
         </nav>
 
         <div class="header-actions">
-          <button id="themeToggle" class="outline-button">Switch to dark mode</button>
+          <!-- Sliding Toggle Switch -->
+          <div onclick="toggleTheme()" class="theme-toggle-switch">
+            <div id="themeKnob" class="theme-knob">
+              <span id="themeIcon" class="theme-icon">🌙</span>
+            </div>
+          </div>
           <a class="phone-link" href="tel:+254111506710">+254 111 506 710</a>
           <button class="primary-button" data-page-link="contact">Get a Quote</button>
         </div>
@@ -37,7 +42,10 @@
       </div>
 
       <div id="mobileMenu" class="mobile-menu">
-        <button id="mobileThemeToggle" class="outline-button">Switch to dark mode</button>
+        <span>Dark Mode</span>
+      <div onclick="toggleTheme()" class="theme-toggle-switch mobile-toggle">
+      <div id="mobileThemeKnob" class="theme-knob">
+        <span id="mobileThemeIcon" class="theme-icon">🌙</span>
         <button data-page-link="home">Home</button>
         <button data-page-link="about">About</button>
         <button data-page-link="services">Services</button>
