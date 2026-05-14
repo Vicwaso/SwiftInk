@@ -109,6 +109,7 @@ const services = {
     finishes: ["Matte paper", "Gloss finish", "Card stock 250gsm", "Lamination on request", "Corner rounding"],
     turnaround: "Usually 2-4 working days after design approval, depending on quantity and finishing.",
     gallery: ["Wedding Cake Ticket", "Birthday Cupcake Topper", "Buffet Food Label"],
+  },  // ✅ THIS CLOSING BRACKET WAS MISSING!
 };
 
 const serviceList = Object.entries(services).map(([slug, service]) => ({ slug, ...service }));
@@ -378,7 +379,6 @@ function attachFormHandlers(form) {
       else details.push([getLabel(key), clean]);
     }
     
-    // Save to Firebase database
     const orderDetails = {
       clientName: details.find(d => d[0] === "Client name")?.[1] || "",
       phone: details.find(d => d[0] === "Phone number")?.[1] || "",
@@ -389,13 +389,16 @@ function attachFormHandlers(form) {
       urgency: details.find(d => d[0] === "How urgent is it?")?.[1] || ""
     };
     
-    // Show saving message
     const submitButton = form.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
     submitButton.textContent = "Saving order...";
     submitButton.disabled = true;
     
-    await saveOrderToDatabase(orderDetails);
+    if (typeof saveOrderToDatabase === 'function') {
+      await saveOrderToDatabase(orderDetails);
+    } else {
+      console.log("Firebase not loaded, skipping save");
+    }
     
     submitButton.textContent = originalText;
     submitButton.disabled = false;
@@ -563,7 +566,6 @@ function init() {
   console.log("SwiftInk website initialized!");
 }
 
-// Wait for DOM to be ready
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", init);
 } else {
