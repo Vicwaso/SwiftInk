@@ -1,12 +1,11 @@
-// Firebase Configuration - REPLACE with your actual Firebase config
-// Get this from: https://console.firebase.google.com -> Your Project -> Project Settings -> Your Web App
+// Firebase Configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyD_xxxxxxxxxxxxxxxxxxxxx",  // Replace with your real API Key
-    authDomain: "swiftink-dashboard.firebaseapp.com",  // Replace with your auth domain
-    projectId: "swiftink-dashboard",  // Replace with your project ID
-    storageBucket: "swiftink-dashboard.firebasestorage.app",  // Replace with your storage bucket
-    messagingSenderId: "1234567890",  // Replace with your sender ID
-    appId: "1:1234567890:web:abc123def456"  // Replace with your app ID
+    apiKey: "AIzaSyBTWBCzMXz1K25zEckP3gN3F9E5PphwbyY",
+    authDomain: "swiftink-64a05.firebaseapp.com",
+    projectId: "swiftink-64a05",
+    storageBucket: "swiftink-64a05.firebasestorage.app",
+    messagingSenderId: "693593977308",
+    appId: "1:693593977308:web:34ed74e69ee90141a31f19"
 };
 
 // Initialize Firebase
@@ -17,7 +16,7 @@ const db = firebase.firestore();
 async function saveOrderToDatabase(orderData) {
     try {
         const urgency = orderData.urgency === 'Same day' || orderData.urgency === 'Next day';
-        
+
         const orderToSave = {
             clientName: orderData.clientName || "",
             phone: orderData.phone || "",
@@ -33,7 +32,7 @@ async function saveOrderToDatabase(orderData) {
             notes: [],
             source: 'website'
         };
-        
+
         const docRef = await db.collection('orders').add(orderToSave);
         console.log('Order saved to Firebase with ID:', docRef.id);
         return true;
