@@ -98,6 +98,17 @@ const services = {
     turnaround: "Turnaround depends on data readiness and quantity. Small batches can be completed quickly after approval.",
     gallery: ["Staff ID", "Event Badge", "School Card"],
   },
+  caketickets: {
+    title: "Cake Tickets",
+    eyebrow: "Custom cake tickets & event labels",
+    minOrder: "50 tickets",
+    tagline: "Beautiful printed cake tickets for weddings, birthdays, and special events.",
+    description: "SwiftInk designs and prints custom cake tickets, cupcake toppers, dessert labels, and event food tags. Perfect for weddings, birthday parties, baby showers, and corporate events.",
+    image: "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?auto=format&fit=crop&w=1200&q=80",
+    formats: ["Standard cake ticket (2x3 inch)", "Cupcake toppers", "Buffet labels", "Dessert tags", "Custom size", "Round or square shape"],
+    finishes: ["Matte paper", "Gloss finish", "Card stock 250gsm", "Lamination on request", "Corner rounding"],
+    turnaround: "Usually 2-4 working days after design approval, depending on quantity and finishing.",
+    gallery: ["Wedding Cake Ticket", "Birthday Cupcake Topper", "Buffet Food Label"],
 };
 
 const serviceList = Object.entries(services).map(([slug, service]) => ({ slug, ...service }));
@@ -161,6 +172,16 @@ const orderQuestions = {
     { name: "idSides", label: "Print sides", type: "select", options: ["Single-sided", "Double-sided"] },
     { name: "dataReady", label: "Is the names/photos data ready?", type: "select", options: ["Yes, spreadsheet and photos are ready", "Photos only", "Names only", "Need guidance"] },
   ],
+  caketickets: [
+    { name: "eventType", label: "Event type", type: "select", options: ["Wedding", "Birthday", "Baby Shower", "Corporate Event", "Other"] },
+    { name: "ticketFormat", label: "What do you need?", type: "select", options: ["Cake tickets", "Cupcake toppers", "Buffet labels", "Dessert tags", "Custom food labels"] },
+    { name: "quantity", label: "How many tickets?", placeholder: "e.g. 100 tickets" },
+    { name: "size", label: "Preferred size", placeholder: "e.g. 2x3 inches, round 2 inches, custom" },
+    { name: "design", label: "Do you have a design?", type: "select", options: ["Yes, I have artwork ready", "No, need design help", "I have a rough idea"] },
+    { name: "eventTheme", label: "Event theme / colours", placeholder: "e.g. gold and white, floral, pastel, superhero" },
+    { name: "text", label: "Text to appear on tickets", type: "textarea", placeholder: "Names, date, thank you message, food item names, etc." },
+    { name: "urgency", label: "When do you need them?", type: "select", options: ["Within 3 days", "Within a week", "2 weeks", "Flexible"] },
+  ],
 };
 
 const pricingSections = [
@@ -172,6 +193,7 @@ const pricingSections = [
   { product: "Office Window Wraps", min: "1 piece", base: "Custom quote", affects: "Measurements, vinyl type, design complexity, installation site, durability needs." },
   { product: "Flyers & Brochures", min: "Flyers: 100 · Brochures: 50", base: "From KSh 15 each", affects: "Size, folds, paper weight, lamination, quantity, design work." },
   { product: "ID Cards & Badges", min: "50 copies", base: "From KSh 250 each", affects: "PVC vs laminated card, lanyards, double-sided print, data handling, quantity." },
+  { product: "Cake Tickets", min: "50 tickets", base: "From KSh 1,500 (50 tickets)", affects: "Price depends on quantity, size, shape, paper quality, design complexity, and finishing options like lamination or corner rounding." },
 ];
 
 const portfolioItems = [
@@ -187,6 +209,9 @@ const portfolioItems = [
   { title: "Outdoor Promo Banner", category: "banners" },
   { title: "A5 Flyer Campaign", category: "flyers" },
   { title: "Funeral Order of Service", category: "eulogies" },
+  { title: "Wedding Cake Ticket Set", category: "caketickets" },
+  { title: "Birthday Cupcake Toppers", category: "caketickets" },
+  { title: "Buffet Food Labels", category: "caketickets" },
 ];
 
 const legalCopy = {
