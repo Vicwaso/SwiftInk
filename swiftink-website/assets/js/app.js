@@ -457,14 +457,35 @@ function renderLegal() {
 }
 
 function setTheme(isDark) {
-  document.body.classList.toggle("dark-mode", isDark);
-  localStorage.setItem("swiftinkTheme", isDark ? "dark" : "light");
-  const label = isDark ? "Switch to light mode" : "Switch to dark mode";
-  const themeToggle = document.getElementById("themeToggle");
-  const mobileThemeToggle = document.getElementById("mobileThemeToggle");
-  if (themeToggle) themeToggle.textContent = label;
-  if (mobileThemeToggle) mobileThemeToggle.textContent = label;
+  const html = document.documentElement;
+  const body = document.body;
+  const themeKnob = document.getElementById('themeKnob');
+  const themeIcon = document.getElementById('themeIcon');
+  const mobileThemeKnob = document.getElementById('mobileThemeKnob');
+  const mobileThemeIcon = document.getElementById('mobileThemeIcon');
+  
+  if (isDark) {
+    body.classList.add('dark-mode');
+    if (themeIcon) themeIcon.textContent = '🌙';
+    if (mobileThemeIcon) mobileThemeIcon.textContent = '🌙';
+    if (themeKnob) themeKnob.style.transform = 'translateX(24px)';
+    if (mobileThemeKnob) mobileThemeKnob.style.transform = 'translateX(24px)';
+  } else {
+    body.classList.remove('dark-mode');
+    if (themeIcon) themeIcon.textContent = '☀️';
+    if (mobileThemeIcon) mobileThemeIcon.textContent = '☀️';
+    if (themeKnob) themeKnob.style.transform = 'translateX(0)';
+    if (mobileThemeKnob) mobileThemeKnob.style.transform = 'translateX(0)';
+  }
+  
+  localStorage.setItem('swiftinkTheme', isDark ? 'dark' : 'light');
 }
+
+// Global toggle function for onclick
+window.toggleTheme = function() {
+  const isDark = !document.body.classList.contains('dark-mode');
+  setTheme(isDark);
+};
 
 function setupNavigation() {
   document.addEventListener("click", (event) => {
@@ -483,19 +504,8 @@ function setupNavigation() {
       if (mobileMenu) mobileMenu.classList.toggle("open");
     });
   }
-  
-  const themeToggle = document.getElementById("themeToggle");
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => setTheme(!document.body.classList.contains("dark-mode")));
-  }
-  
-  const mobileThemeToggle = document.getElementById("mobileThemeToggle");
-  if (mobileThemeToggle) {
-    mobileThemeToggle.addEventListener("click", () => setTheme(!document.body.classList.contains("dark-mode")));
-  }
-}
 
-function setupChat() {
+  function setupChat() {
   const panel = document.getElementById("chatPanel");
   const messages = document.getElementById("chatMessages");
   const input = document.getElementById("chatInput");
@@ -562,12 +572,10 @@ function init() {
     yearElement.textContent = new Date().getFullYear();
   }
   
-  setTheme(localStorage.getItem("swiftinkTheme") === "dark");
+  // Load saved theme
+  const savedTheme = localStorage.getItem('swiftinkTheme');
+  const isDark = savedTheme === 'dark';
+  setTheme(isDark);
+  
   console.log("SwiftInk website initialized!");
-}
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init);
-} else {
-  init();
 }
