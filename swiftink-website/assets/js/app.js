@@ -17,7 +17,7 @@ const services = {
     minOrder: "100 copies",
     tagline: "Elegant wedding stationery customised to your theme.",
     description: "From classic invitation cards to modern RSVP inserts and order-of-service booklets, we help couples create beautiful print pieces for their big day.",
-    image: "assets/images/weddingcard.jpg",
+    image: "assets/images/weddingcard.jpeg",
     formats: ["Invitation cards", "RSVP inserts", "Thank-you cards", "Order-of-service booklets", "Envelope cards"],
     finishes: ["Matte", "Gloss", "Laminate", "Textured paper", "Rounded corners"],
     turnaround: "Usually 2-5 working days after design approval, depending on finishing and quantity.",
