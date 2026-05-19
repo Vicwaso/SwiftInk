@@ -8,7 +8,7 @@ const services = {
     minOrder: "100 copies",
     tagline: "Sensitive, polished memorial printing when families need it most.",
     description: "SwiftInk designs and prints funeral programmes, eulogy booklets, tribute cards, and memorial keepsakes with care, speed, and professionalism.",
-    image: "https://images.unsplash.com/photo-1490122417551-6ee9691429d0?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/eulogies.jpg",
     formats: ["A5 booklet", "A4 folded programme", "Single-fold card", "Tribute card", "Order of service booklet"],
     finishes: ["Gloss cover", "Matte cover", "Staple binding", "Lamination on request"],
     turnaround: "Same-day or next-day options available depending on quantity and artwork readiness.",
