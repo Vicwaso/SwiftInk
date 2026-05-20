@@ -467,4 +467,119 @@ function setTheme(isDark) {
     body.classList.add('dark-mode');
     if (themeIcon) themeIcon.textContent = '🌙';
     if (mobileThemeIcon) mobileThemeIcon.textContent = '🌙';
-    if (themeKnob
+    if (themeKnob) themeKnob.style.transform = 'translateX(24px)';
+    if (mobileThemeKnob) mobileThemeKnob.style.transform = 'translateX(24px)';
+  } else {
+    body.classList.remove('dark-mode');
+    if (themeIcon) themeIcon.textContent = '☀️';
+    if (mobileThemeIcon) mobileThemeIcon.textContent = '☀️';
+    if (themeKnob) themeKnob.style.transform = 'translateX(0)';
+    if (mobileThemeKnob) mobileThemeKnob.style.transform = 'translateX(0)';
+  }
+  
+  localStorage.setItem('swiftinkTheme', isDark ? 'dark' : 'light');
+}
+
+window.toggleTheme = function() {
+  const isDark = !document.body.classList.contains('dark-mode');
+  setTheme(isDark);
+};
+
+function setupNavigation() {
+  document.addEventListener("click", (event) => {
+    const pageButton = event.target.closest("[data-page-link]");
+    if (pageButton) page(pageButton.dataset.pageLink);
+    const serviceButton = event.target.closest("[data-service-link]");
+    if (serviceButton) renderServiceDetail(serviceButton.dataset.serviceLink);
+    const filterButton = event.target.closest("[data-filter]");
+    if (filterButton) renderPortfolio(filterButton.dataset.filter);
+  });
+
+  const mobileMenuButton = document.getElementById("mobileMenuButton");
+  if (mobileMenuButton) {
+    mobileMenuButton.addEventListener("click", () => {
+      const mobileMenu = document.getElementById("mobileMenu");
+      if (mobileMenu) mobileMenu.classList.toggle("open");
+    });
+  }
+}
+
+function setupChat() {
+  const panel = document.getElementById("chatPanel");
+  const messages = document.getElementById("chatMessages");
+  const input = document.getElementById("chatInput");
+  const whatsapp = document.getElementById("chatWhatsapp");
+  const chat = [{ from: "agent", text: "Hi, welcome to SwiftInk. I'm here to help with quotes, orders, files, deadlines, and delivery questions." }];
+
+  function renderChat() {
+    if (messages) {
+      messages.innerHTML = chat.map((item) => `<div class="chat-message ${item.from}">${item.text}</div>`).join("");
+    }
+    const latestClient = [...chat].reverse().find((item) => item.from === "client")?.text || "Hi SwiftInk, I need help with a print order.";
+    if (whatsapp) {
+      whatsapp.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(latestClient)}`;
+    }
+  }
+
+  const openChat = document.getElementById("openChat");
+  if (openChat) {
+    openChat.addEventListener("click", () => {
+      if (panel) panel.classList.toggle("open");
+    });
+  }
+  
+  const closeChat = document.getElementById("closeChat");
+  if (closeChat) {
+    closeChat.addEventListener("click", () => {
+      if (panel) panel.classList.remove("open");
+    });
+  }
+  
+  const chatForm = document.getElementById("chatForm");
+  if (chatForm) {
+    chatForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!input) return;
+      const text = input.value.trim();
+      if (!text) return;
+      chat.push({ from: "client", text });
+      chat.push({ from: "agent", text: "Thanks. A SwiftInk agent can help you with that. For the fastest response, continue on WhatsApp with this message." });
+      input.value = "";
+      renderChat();
+    });
+  }
+  renderChat();
+}
+
+function init() {
+  console.log("Initializing SwiftInk website...");
+  renderServices();
+  renderPricing();
+  renderPortfolio();
+  renderLegal();
+  setupNavigation();
+  setupChat();
+  
+  const contactQuoteForm = document.getElementById("contactQuoteForm");
+  if (contactQuoteForm) {
+    contactQuoteForm.innerHTML = buildQuoteForm("");
+    attachFormHandlers(document.querySelector("#contactQuoteForm form"));
+  }
+  
+  const yearElement = document.getElementById("year");
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+  
+  const savedTheme = localStorage.getItem('swiftinkTheme');
+  const isDark = savedTheme === 'dark';
+  setTheme(isDark);
+  
+  console.log("SwiftInk website initialized!");
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
